@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from "axios";
 
 class CreatePost extends Component {
     constructor(props) {
@@ -17,6 +18,27 @@ class CreatePost extends Component {
             [name]:value
         })
     }
+
+    onSubmit = (e) =>{
+        e.preventDefault();
+        const {topic,description,postCategory}=this.state;
+        const data = {
+            topic:topic,
+            description:description,
+            postCategory:postCategory
+        }
+        console.log(data);
+        axios.post("/post/save",data).then((res)=>{
+            if (res.data.success){
+                this.setState({
+                    topic:topic,
+                    description:description,
+                    postCategory:postCategory
+                })
+            }
+        })
+    }
+
 
     render() {
         return (

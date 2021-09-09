@@ -24,6 +24,13 @@ class Home extends Component {
         })
     }
 
+    onDelete = (id) =>{
+        axios.delete(`/post/delete/${id}`).then((res)=>{
+            alert("deleted Successfully");
+            this.retrievePosts();
+        })
+    }
+
     render() {
         return (
             <div className="container">
@@ -50,11 +57,11 @@ class Home extends Component {
                             <td>{posts.description}</td>
                             <td>{posts.postCategory}</td>
                             <td>
-                                <a className="btn btn-warning" href="#">
+                                <a className="btn btn-warning" href={`/edit/${posts._id}`}>
                                     <i className="fas fa-edit"></i>&nbsp;Edit
                                 </a>
                                 &nbsp;
-                                <a className="btn btn-danger" href="#">
+                                <a className="btn btn-danger" href="#" onClick={()=>this.onDelete(posts._id)}>
                                     <i className="fas fa-trash-alt"></i>&nbsp;Delete
                                 </a>
                             </td>
