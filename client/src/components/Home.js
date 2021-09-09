@@ -31,11 +31,44 @@ class Home extends Component {
         })
     }
 
+    filterData(posts,searchKey){
+        const result = posts.filter((post)=>
+        post.topic.toLowerCase().includes(searchKey) ||
+        post.description.toLowerCase().includes(searchKey) ||
+        post.postCategory.toLowerCase().includes(searchKey)
+        )
+
+        this.setState({posts:result})
+    }
+
+
+    handleSearchArea = (e)=>{
+        const searchKey = e.currentTarget.value;
+        axios.get("/posts").then(res=>{
+            if (res.data.success){
+                this.filterData(res.data.existingPosts,searchKey)
+            }
+        })
+    }
     render() {
         return (
             <div className="container">
-                <p>All posts</p>
-                <table className="table">
+                <div className="row">
+                    <div className="col-lg-9 mt-2 mb-2">
+                        <h4>All Posts</h4>
+                    </div>
+                    <div className="col-lg-3 mt-2 mb-2">
+                        <input
+                            className="form-control"
+                            type="search"
+                            placeholder="search"
+                            name="searchQuery"
+                            onChange={this.handleSearchArea}>
+                        </input>
+                    </div>
+                </div>
+
+                    <table className="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -73,7 +106,7 @@ class Home extends Component {
                 <button className="btn btn-success">
                     <a href="/add" style={{textDecoration:"none",color:"white" }}>Create New Post</a>
                 </button>
-            </div>
+                </div>
         );
     }
 }
