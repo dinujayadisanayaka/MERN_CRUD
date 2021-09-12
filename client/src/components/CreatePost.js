@@ -83,7 +83,12 @@ class CreatePost extends Component {
                 <i className="far fa-check-square"></i>&nbsp;Save
             </button>
 
+            <button className="btn btn-success" href="" style={{marginTop:'15px'}}>
+                Back
+            </button>
+
         </form>
+
     </div>
 
             );
